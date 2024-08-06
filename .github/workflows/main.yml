@@ -1,1 +1,34 @@
+name: main 
 
+on: [push] #occurs when we push our code to the repo
+
+jobs:
+  SAST_scan:
+    name: Run Bandit Scan
+    runs-on: ubuntu-latest #specify enviroment for job runtime - uses a fresh env on github hosted machine
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2 #copies your code to the Github hosted machine
+
+    - name: Set Up Python #install Python on the Github hosted machine 
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install SAST Tool (Bandit)
+      run: pip install bandit
+
+    - name: Run SAST scan (Bandit)
+      run: bandit -r . # runs the app which will scan everything in the current folder (recursively looking at subfolders too)
+
+      
+        
+    
+    
+
+        
+
+      
+    
+  
