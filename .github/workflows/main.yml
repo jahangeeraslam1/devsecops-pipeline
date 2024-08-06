@@ -20,7 +20,7 @@ jobs:
       run: pip install bandit
 
     - name: Run SAST scan (Bandit)
-      run: bandit -r . # runs the app which will scan everything in the current folder (recursively looking at subfolders too)
+      run: bandit -ll -ii -r. # runs the app which will scan everything in the current folder (recursively looking at subfolders too)
 
       
         
