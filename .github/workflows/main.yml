@@ -20,7 +20,23 @@ jobs:
       run: pip install bandit
 
     - name: Run SAST scan (Bandit)
-      run: bandit -ll -ii -r . # runs the app which will scan everything in the current folder (recursively looking at subfolders too)
+      run: bandit -ll -ii -r . -f json -o bandit-report.json 
+      #runs the app which will scan everything in the current folder (recursively looking at subfolders too)
+      # flag explanation
+      #        -ll means only show logs for medium and high criticalities 
+      #        -ii means only show logs for medium and high confidence levels
+      #        -f json specifies the format for output ( json file)
+      #        -o tells the SAST tool to output the scan to bandit-report.json
+
+    - name: Upload Scan Results 
+      uses: actions/upload-artifact@v3
+      if: always() # always runs this step whether the last step fails or not
+      with:
+        name: bandit-findings #name of findings file in GitHub Repo
+        path: bandit-report.json 
+      
+               
+               
 
       
         
